@@ -6,5 +6,10 @@
  
  Commands : 
  !help : Displays tips as to how to use the bot.
+ 
  !begin : Start your meeting.
+ 
  !done : End your meeting.
+ 
+ !queue : Shows who's in queue to talk.
+
