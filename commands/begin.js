@@ -128,6 +128,10 @@ module.exports = {
               message.channel.send("Meeting is over !").then(() => message.guild.me.voice.channel.leave()) ;
               reset(client,channel);
             }
+            else if(message.content=='!queue')
+            {
+              message.channel.send(queue);
+            }
         });
 
 	},

@@ -33,7 +33,7 @@ client.on('message', message => {
   if (command === 'begin') {
     client.commands.get('begin').execute(message, args, client); }
   else if (command ==='help'){
-    message.channel.send("Start your meeting with !begin ! React to the message to queue up to speak , other users will be muted while you're speaking ! And once you're done , just use the command !done ! Enjoy your meetings ^^");
+    message.channel.send("Start your meeting with !begin ! React to the message to queue up to speak , other users will be muted while you're speaking ! You can also use !queue to see the list of people on hold ! And once you're done , just use the command !done ! Enjoy your meetings ^^");
   }
 });
 
