@@ -31,8 +31,10 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
   if (command === 'begin') {
+    // Begin Bot function
     client.commands.get('begin').execute(message, args, client); }
   else if (command ==='help'){
+    // Show Help message
     message.channel.send("Start your meeting with !begin ! React to the message to queue up to speak , other users will be muted while you're speaking ! You can also use !queue to see the list of people on hold ! And once you're done , just use the command !done ! Enjoy your meetings ^^");
   }
 });
