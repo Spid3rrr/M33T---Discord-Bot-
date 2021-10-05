@@ -1,3 +1,6 @@
+// Main Code
+
+// Variable Declaration
 var participants = [] ; 
 var participantsNum = 0 ;
 var queue = [] ;
@@ -7,6 +10,8 @@ var queueIsDone = true ;
 var queue_msg;
 var done_msg;
 const BOT_NAME = 'M33T' ;
+
+// Reset all parameters
 function reset(client,channel) { 
     queue = [] ;
     queueCurrentIndex = -1 ;
@@ -14,12 +19,15 @@ function reset(client,channel) {
     queueIsDone = true ;
     unmuteall(client,channel);
 }
+// Unmute everyone in the channel
 function unmuteall(client,channel){
   for (const [memberID, member] of channel.members)
       { 
          member.voice.setMute(false);     
       }             
 }
+
+// Get all users in channel
 function refreshUsers(client,channel){
   participants=[];
   participantsNum=0;
@@ -29,6 +37,7 @@ function refreshUsers(client,channel){
             participantsNum++;
           }
 }
+// Add user to queue once he presses the button
 function addToQueue(client,channel,username){
           console.log("Added to Queue : " + username );
           queueMaxIndex++;
@@ -38,9 +47,12 @@ function addToQueue(client,channel,username){
             console.log("Starting the discussion" );
           }
 }
+
+// Go to the next user, once current user is done talking
 function GoNext(client,channel){
   console.log(queue);
   queueCurrentIndex++;
+	// check if participant in the queue is still in the channel , else skip it
   while( !participants.includes(queue[queueCurrentIndex]) && queueCurrentIndex<=queueMaxIndex) 
     {
       queueCurrentIndex++;
@@ -48,6 +60,7 @@ function GoNext(client,channel){
     }
   console.log("Speaking : "+ queue[queueCurrentIndex] );
   queueIsDone  =  ( queue[queueCurrentIndex] == undefined );
+	// Queue is over, reset everthing
   if( queueIsDone ) {
     reset(client,channel) ;
     return ;
@@ -78,7 +91,9 @@ module.exports = {
         channel.join().then(connection => {
             // Yay, it worked!
             console.log("Successfully connected.");
+	    // Get connected users
             refreshUsers(client,channel);
+	    // Create react buttons for users
             message.channel.send('React here if you wish to speak next').then(function (message) {
               message.react("✋");
               queue_msg = message.id ;
@@ -90,7 +105,7 @@ module.exports = {
             }).catch(function() {
             });
         }).catch(e => {
-            // Oh no, it errored! Let's log it to console :)
+            // Log error to console
             console.error(e);
         });
         // Voice Channel Update ( join or leave )
